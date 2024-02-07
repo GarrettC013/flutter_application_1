@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "235403597235",
+    "project_id": "senior-capston",
+    "storage_bucket": "senior-capston.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:235403597235:android:3fb5f664f169fb105ca7c6",
+        "android_client_info": {
+          "package_name": "com.example.flutter_application_1"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCviUQC59tH-aHOvW_DeO6OcyzOHEKcCqg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
