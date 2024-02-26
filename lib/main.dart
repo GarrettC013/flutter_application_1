@@ -28,7 +28,6 @@ void main() async {
   await FirestoreService.initializeFirebase(
       options: DefaultFirebaseOptions.currentPlatform);
   runApp(MaterialApp(
-    debugShowCheckedModeBanner: false,
     home: MyApp(),
   ));
 }
@@ -38,6 +37,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Your App Name',
+      debugShowCheckedModeBanner: false,
       home: _getLandingPage(),
     );
   }

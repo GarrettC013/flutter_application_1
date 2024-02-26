@@ -141,7 +141,7 @@ class _Calendar_PageState extends State<Calendar_Page> {
           child: ValueListenableBuilder(
               valueListenable: _selectedEvents,
               builder: (context, value, _) {
-                print("Selected Events 151: value"); // Added for debugging
+                //print("Selected Events 151: value"); // Added for debugging
 
                 return ListView.builder(
                     itemCount: value.length,

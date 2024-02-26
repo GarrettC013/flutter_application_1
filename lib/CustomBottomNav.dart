@@ -4,6 +4,7 @@ import 'package:flutter_application_1/Pages/Calendar_Page_Loader.dart';
 import 'package:flutter_application_1/Pages/Video_Page.dart';
 import 'FirestoreService.dart';
 import 'firebase_options.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 void main() async {
   //final storage = FirebaseStorage.instance;
@@ -46,7 +47,13 @@ class _BottomNavigationBarExampleAppState
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('BottomNavigationBar'),
+        title: const Text(' '),
+        actions: [
+          IconButton(
+            icon: Icon(Icons.logout),
+            onPressed: () => FirebaseAuth.instance.signOut(),
+          ),
+        ],
       ),
       body: _Pages[_selectedIndex],
       drawer: const Drawer(backgroundColor: Colors.blue),
