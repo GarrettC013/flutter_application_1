@@ -1,4 +1,3 @@
-//import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/Pages/Calendar_Page_Loader.dart';
@@ -51,7 +50,6 @@ class _Calendar_PageState extends State<Calendar_Page> {
         print("Events for the $selectedDay: ");
         for (Event event in events) {
           print("  Title: ${event.title}: ");
-          print("  Timestamp: ${widget.events.timestamp.toDate()}");
         }
       });
     }
@@ -95,17 +93,9 @@ class _Calendar_PageState extends State<Calendar_Page> {
                         User? currentUser = _auth.currentUser;
 
                         if (currentUser != null) {
-                          // events.addAll({
-                          //   _selectedDay!: [
-                          //     Event(
-                          //       _eventController.text,
-                          //       //userId: currentUser.uid,
-                          //     )
-                          //   ]
-                          // });
                           await FirestoreService.addEventData(
                             _eventController.text,
-                            timestamp: FieldValue.serverTimestamp(),
+                            timestamp: Timestamp.fromDate(_selectedDay!),
                             userId: currentUser.uid,
                           );
                           if (context.mounted) {

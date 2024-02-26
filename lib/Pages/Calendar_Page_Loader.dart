@@ -7,7 +7,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'Calendar_Page.dart';
 
 String fromDateTime(DateTime t) {
-  return "${t.day}-${t.month}-${t.year}";
+  return "${t.toUtc().day}-${t.toUtc().month}-${t.toUtc().year}";
 }
 
 // ignore: must_be_immutable, camel_case_types
