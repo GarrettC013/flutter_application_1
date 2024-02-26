@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter_application_1/CustomBottomNav.dart';
+//import 'package:flutter_application_1/CustomBottomNav.dart';
 import 'package:flutter_application_1/firebase_auth_services.dart';
 
 class SignupPage extends StatelessWidget {

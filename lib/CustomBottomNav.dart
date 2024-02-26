@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/Pages/Home_Page.dart';
-import 'package:flutter_application_1/Pages/Calendar_Page.dart';
+import 'package:flutter_application_1/Pages/Calendar_Page_Loader.dart';
 import 'package:flutter_application_1/Pages/Video_Page.dart';
 import 'FirestoreService.dart';
 import 'firebase_options.dart';
@@ -16,7 +16,8 @@ void main() async {
 }
 
 class BottomNavigationBarExampleApp extends StatefulWidget {
-  const BottomNavigationBarExampleApp({super.key});
+  const BottomNavigationBarExampleApp(this.uid, {super.key});
+  final String uid;
 
   @override
   State<BottomNavigationBarExampleApp> createState() =>
@@ -38,7 +39,7 @@ class _BottomNavigationBarExampleAppState
   final List _Pages = [
     Video_Page(),
     Home_Page(),
-    Calendar_Page(),
+    Calendar_Page_Loader(),
   ];
 
   @override

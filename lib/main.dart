@@ -47,15 +47,11 @@ class MyApp extends StatelessWidget {
       stream: FirebaseAuth.instance.authStateChanges(),
       builder: (BuildContext context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return Center(child: CircularProgressIndicator());
+          return const Center(child: CircularProgressIndicator());
         } else if (snapshot.hasError) {
           return const Center(child: Text("Something went wrong!"));
         } else if (snapshot.hasData) {
-          if (snapshot.data != null) {
-            User user = snapshot.data!;
-            debugPrint(user.uid);
-          }
-          return BottomNavigationBarExampleApp();
+          return BottomNavigationBarExampleApp(snapshot.data?.uid ?? "-");
         } else {
           return LoginPage();
         }
