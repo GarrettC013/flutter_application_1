@@ -29,6 +29,7 @@ void main() async {
       options: DefaultFirebaseOptions.currentPlatform);
   runApp(MaterialApp(
     home: MyApp(),
+    debugShowCheckedModeBanner: false,
   ));
 }
 

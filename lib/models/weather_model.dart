@@ -1,6 +1,6 @@
 class Weather {
   final String cityName;
-  final String temperature;
+  final double temperature;
   final String mainCondition;
 
   Weather(
@@ -10,8 +10,16 @@ class Weather {
 
   factory Weather.fromJson(Map<String, dynamic> json) {
     return Weather(
-        cityName: json["Name"],
-        temperature: json["main"]["temp"].tpDouble(),
+        cityName: json["name"],
+        temperature: json["main"]["temp"].toDouble(),
         mainCondition: json["weather"][0]["main"]);
+  }
+
+  factory Weather.empty() {
+    return Weather(
+      cityName: 'Unknown',
+      temperature: 0.0,
+      mainCondition: 'Unknown',
+    );
   }
 }

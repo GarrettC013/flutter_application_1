@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/Pages/Home_Page.dart';
 import 'package:flutter_application_1/Pages/Calendar_Page_Loader.dart';
+import 'package:flutter_application_1/Pages/Home_Page_Loader.dart';
 import 'package:flutter_application_1/Pages/Video_Page.dart';
 import 'FirestoreService.dart';
 import 'firebase_options.dart';
@@ -39,7 +40,7 @@ class _BottomNavigationBarExampleAppState
 
   final List _Pages = [
     Video_Page(),
-    Home_Page(),
+    Home_Page_Loader(),
     Calendar_Page_Loader(),
   ];
 

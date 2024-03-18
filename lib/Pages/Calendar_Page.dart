@@ -28,8 +28,7 @@ class _Calendar_PageState extends State<Calendar_Page> {
 
   List<Event> _getEventsForDay(DateTime day) {
     //retrieve all events from selected day
-    print(
-        "Events for day Line 30 $day: ${widget.events[fromDateTime(day)]}"); // Added for debugging
+    //print("Events for day Line 30 $day: ${widget.events[fromDateTime(day)]}"); // Added for debugging
     return widget.events[fromDateTime(day)] ?? [];
   }
 
