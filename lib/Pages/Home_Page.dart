@@ -1,4 +1,5 @@
 //import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/Pages/Calendar_Page_Loader.dart';
 import 'package:flutter_application_1/events.dart';
@@ -42,7 +43,9 @@ class _Home_PageState extends State<Home_Page> {
     }
     //error catching
     catch (e) {
-      print(e);
+      if (kDebugMode) {
+        print(e);
+      }
     }
   }
 

@@ -1,9 +1,10 @@
-// import 'package:flutter/material.dart';
-// import "CustomBottomNav.dart";
 import 'package:flutter_application_1/Pages/Login_Page.dart';
-// import 'FirestoreService.dart';
-// import 'firebase_options.dart';
-// import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
+import 'CustomBottomNav.dart';
+import 'FirestoreService.dart';
+import 'firebase_options.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter_application_1/Pages/Groups_Page.dart';
 
 // void main() async {
 //   WidgetsFlutterBinding.ensureInitialized();
@@ -16,12 +17,6 @@ import 'package:flutter_application_1/Pages/Login_Page.dart';
 // }
 //StreamBuilder
 //stream: firebaseauth.instance.onAuthStateChanged
-
-import 'package:flutter/material.dart';
-import 'CustomBottomNav.dart';
-import 'FirestoreService.dart';
-import 'firebase_options.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -52,7 +47,8 @@ class MyApp extends StatelessWidget {
         } else if (snapshot.hasError) {
           return const Center(child: Text("Something went wrong!"));
         } else if (snapshot.hasData) {
-          return BottomNavigationBarExampleApp(snapshot.data?.uid ?? "-");
+          //return BottomNavigationBarExampleApp(snapshot.data?.uid ?? "-");
+          return GroupsPage();
         } else {
           return LoginPage();
         }
