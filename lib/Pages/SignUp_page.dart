@@ -26,13 +26,6 @@ class SignupPage extends StatelessWidget {
       if (context.mounted) {
         Navigator.pop(context);
       }
-
-      // Navigate to the homepage or perform any desired actions after signup
-      // Navigator.pushReplacement(
-      //   context,
-      //   MaterialPageRoute(
-      //       builder: (context) => BottomNavigationBarExampleApp()),
-      // );
     } on FirebaseAuthException catch (e) {
       // Handle signup errors
       print("Error during signup: $e");

@@ -1,20 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/Pages/Home_Page.dart';
 import 'package:flutter_application_1/Pages/Calendar_Page_Loader.dart';
 import 'package:flutter_application_1/Pages/Home_Page_Loader.dart';
 import 'package:flutter_application_1/Pages/Video_Page.dart';
+import 'package:flutter_application_1/Pages/Groups_Page.dart';
 import 'FirestoreService.dart';
 import 'firebase_options.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 void main() async {
-  //final storage = FirebaseStorage.instance;
-  //final storageRef = FirebaseStorage.instance.ref();
-
   WidgetsFlutterBinding.ensureInitialized();
   await FirestoreService.initializeFirebase(
       options: DefaultFirebaseOptions.currentPlatform);
-  //runApp(MaterialApp(debugShowCheckedModeBanner: false, home: MyLoginApp()));
 }
 
 class BottomNavigationBarExampleApp extends StatefulWidget {
@@ -29,6 +25,61 @@ class BottomNavigationBarExampleApp extends StatefulWidget {
 class _BottomNavigationBarExampleAppState
     extends State<BottomNavigationBarExampleApp> {
   final eventController = TextEditingController();
+  late String _selectedGroup;
+
+  @override
+  void initState() {
+    super.initState();
+    _selectedGroup = "";
+    WidgetsBinding.instance!.addPostFrameCallback((_) {
+      _checkSelectedGroup();
+    });
+  }
+
+  void _checkSelectedGroup() {
+    if (_selectedGroup.isEmpty) {
+      _showGroupSelectionDialog();
+    }
+  }
+
+  void _showGroupSelectionDialog() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Select a Group'),
+          content: Text('You need to select a group to continue.'),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.pop(context);
+                _navigateToGroupsPage();
+              },
+              child: Text('Select Group'),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  void _navigateToGroupsPage() async {
+    await Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => GroupsPage(
+          onGroupSelected: (selectedGroup) {
+            setState(() {
+              _selectedGroup = selectedGroup;
+            });
+          },
+        ),
+      ),
+    );
+    setState(() {
+      _checkSelectedGroup(); // Check if a group is selected after returning
+    });
+  }
 
   void _navigateBottomBar(int index) {
     setState(() {

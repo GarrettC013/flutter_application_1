@@ -2,6 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class GroupsPage extends StatefulWidget {
+  final Function(String)? onGroupSelected;
+
+  GroupsPage({this.onGroupSelected});
+
   @override
   JoinGroup createState() => JoinGroup();
 }
@@ -22,7 +26,7 @@ class JoinGroup extends State<GroupsPage> {
         await FirebaseFirestore.instance.collection('Groups').get();
     List<String> groupsNames = [];
     querySnapshot.docs.forEach((doc) {
-      // Add "names" field from each document to the list
+      // Add "name" field from each document to the list
       groupsNames.add(doc.get('name'));
     });
     setState(() {
@@ -47,7 +51,11 @@ class JoinGroup extends State<GroupsPage> {
           children: [
             ElevatedButton(
               onPressed: () {
-                // Add your onPressed logic here
+                if (selectedItem != null) {
+                  widget.onGroupSelected?.call(selectedItem!);
+                  Navigator.pop(
+                      context); // Navigate back to the previous screen
+                }
               },
               child: Text('Select'),
             ),
@@ -60,6 +68,8 @@ class JoinGroup extends State<GroupsPage> {
                 setState(() {
                   selectedItem = newValue!;
                 });
+                widget.onGroupSelected
+                    ?.call(newValue!); // Call the callback here
               },
               value: selectedItem,
             ),
@@ -86,26 +96,27 @@ class JoinGroup extends State<GroupsPage> {
       return;
     }
 
-    // Add a new group to the "groups" collection
+    // Add a new group to the "Groups" collection
     await FirebaseFirestore.instance
         .collection('Groups')
         .add({'name': groupName});
 
-    // Create a subcollection called "events" within the newly added group
+    // Create a subcollection called "Events" within the newly added group
     DocumentReference groupRef = await FirebaseFirestore.instance
         .collection('Groups')
         .where('name', isEqualTo: groupName)
         .get()
         .then((value) => value.docs.first.reference);
     await groupRef.collection('Events').add({
-      'eventName': 'Example Event', // Example event data
-      'eventDate': DateTime.now(), // Example event data
+      // 'eventName': 'Example Event', // Example event data
+      // 'eventDate': DateTime.now(), // Example event data
     });
 
-    // Update the UI to reflect the changes
     setState(() {
       items.add(groupName);
     });
+
+    //widget.onGroupSelected(groupName);
   }
 }
 
