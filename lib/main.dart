@@ -35,15 +35,6 @@ class MyApp extends StatelessWidget {
       title: 'Your App Name',
       debugShowCheckedModeBanner: false,
       home: _getLandingPage(),
-      // builder: (context, widget) {
-      //   Widget error = const Text('...rendering error...');
-      //   if (widget is Scaffold || widget is Navigator) {
-      //     error = Scaffold(body: Center(child: error));
-      //   }
-      //   ErrorWidget.builder = (errorDetails) => error;
-      //   if (widget != null) return widget;
-      //   throw StateError('widget is null');
-      // },
     );
   }
 

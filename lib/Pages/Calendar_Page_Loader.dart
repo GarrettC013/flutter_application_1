@@ -12,7 +12,8 @@ String fromDateTime(DateTime t) {
 
 // ignore: must_be_immutable, camel_case_types
 class Calendar_Page_Loader extends StatefulWidget {
-  const Calendar_Page_Loader({super.key});
+  final String name;
+  const Calendar_Page_Loader({super.key, required this.name});
 
   @override
   State<Calendar_Page_Loader> createState() => _Calendar_Page_LoaderState();
@@ -31,10 +32,13 @@ class _Calendar_Page_LoaderState extends State<Calendar_Page_Loader> {
   @override
   Widget build(BuildContext context) {
     //store the events created
+    debugPrint('inside alendar lodaer with doc name ${widget.name}');
     Map<String, List<Event>> events = {};
     return Scaffold(
         body: StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
-            stream: FirebaseFirestore.instance.collection("Events").snapshots(),
+            stream: FirebaseFirestore.instance
+                .collection("Groups/${widget.name}/Events")
+                .snapshots(),
             builder: (context, snapshot) {
               debugPrint(
                   "hi I'm going to process a snapshot now ${snapshot.connectionState}");
@@ -66,7 +70,11 @@ class _Calendar_Page_LoaderState extends State<Calendar_Page_Loader> {
                 }
               }
               User? currentUser = FirebaseAuth.instance.currentUser;
-              return Calendar_Page(events: events, userId: currentUser!.uid);
+              return Calendar_Page(
+                events: events,
+                userId: currentUser!.uid,
+                groupId: widget.name,
+              );
             }));
   }
 }

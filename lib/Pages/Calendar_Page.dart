@@ -8,9 +8,14 @@ import 'package:firebase_auth/firebase_auth.dart';
 
 // ignore: must_be_immutable, camel_case_types
 class Calendar_Page extends StatefulWidget {
-  const Calendar_Page({super.key, required this.events, required this.userId});
+  const Calendar_Page(
+      {super.key,
+      required this.events,
+      required this.userId,
+      required this.groupId});
   final Map<String, List<Event>> events;
   final String userId;
+  final String groupId;
   @override
   State<Calendar_Page> createState() => _Calendar_PageState();
 }
@@ -96,6 +101,7 @@ class _Calendar_PageState extends State<Calendar_Page> {
                             _eventController.text,
                             timestamp: Timestamp.fromDate(_selectedDay!),
                             userId: currentUser.uid,
+                            groupId: widget.groupId,
                           );
                           if (context.mounted) {
                             Navigator.of(context).pop();

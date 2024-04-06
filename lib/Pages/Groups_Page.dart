@@ -1,5 +1,11 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+
+class Group {
+  final String name, id;
+  Group(this.name, this.id);
+}
 
 class GroupsPage extends StatefulWidget {
   final Function(String)? onGroupSelected;
@@ -11,7 +17,7 @@ class GroupsPage extends StatefulWidget {
 }
 
 class JoinGroup extends State<GroupsPage> {
-  late List<String> items;
+  List<Group> items = [];
   String? selectedItem;
 
   @override
@@ -21,25 +27,28 @@ class JoinGroup extends State<GroupsPage> {
   }
 
   Future<void> fetchGroups() async {
-    // Fetch data from Firestore collection "groups"
+    // Fetch data from Firestore collection "Groups"
     QuerySnapshot querySnapshot =
         await FirebaseFirestore.instance.collection('Groups').get();
-    List<String> groupsNames = [];
+    List<Group> groupsNames = [];
     querySnapshot.docs.forEach((doc) {
       // Add "name" field from each document to the list
-      groupsNames.add(doc.get('name'));
+      //doc.id
+      groupsNames.add(Group(doc.get('name'), doc.id));
     });
+    debugPrint("Groups: ${groupsNames.length}");
     setState(() {
       items = groupsNames;
+      debugPrint("Items: ${items.length}");
       selectedItem = groupsNames.isNotEmpty
-          ? groupsNames[0]
+          ? groupsNames[0].id
           : null; // Select the first item by default
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    if (items == null) {
+    if (items.length == 0) {
       // Show loading indicator while fetching data
       return Center(child: CircularProgressIndicator());
     }
@@ -52,6 +61,7 @@ class JoinGroup extends State<GroupsPage> {
             ElevatedButton(
               onPressed: () {
                 if (selectedItem != null) {
+                  debugPrint("Selected Item: ${selectedItem}");
                   widget.onGroupSelected?.call(selectedItem!);
                   Navigator.pop(
                       context); // Navigate back to the previous screen
@@ -61,10 +71,11 @@ class JoinGroup extends State<GroupsPage> {
             ),
             DropdownButton(
               dropdownColor: Color.fromARGB(255, 255, 255, 255),
-              items: items.map((String item) {
-                return DropdownMenuItem(value: item, child: Text(item));
+              items: items.map((Group item) {
+                return DropdownMenuItem(value: item.id, child: Text(item.name));
               }).toList(),
               onChanged: (String? newValue) {
+                debugPrint("New value: ${newValue}");
                 setState(() {
                   selectedItem = newValue!;
                 });
@@ -97,9 +108,10 @@ class JoinGroup extends State<GroupsPage> {
     }
 
     // Add a new group to the "Groups" collection
-    await FirebaseFirestore.instance
+    DocumentReference doc = await FirebaseFirestore.instance
         .collection('Groups')
         .add({'name': groupName});
+    Group g = Group(groupName, doc.id);
 
     // Create a subcollection called "Events" within the newly added group
     DocumentReference groupRef = await FirebaseFirestore.instance
@@ -113,10 +125,8 @@ class JoinGroup extends State<GroupsPage> {
     });
 
     setState(() {
-      items.add(groupName);
+      items.add(g);
     });
-
-    //widget.onGroupSelected(groupName);
   }
 }
 

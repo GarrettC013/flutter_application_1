@@ -71,6 +71,7 @@ class _BottomNavigationBarExampleAppState
           onGroupSelected: (selectedGroup) {
             setState(() {
               _selectedGroup = selectedGroup;
+              _Pages[1] = Calendar_Page_Loader(name: _selectedGroup);
             });
           },
         ),
@@ -87,12 +88,11 @@ class _BottomNavigationBarExampleAppState
     });
   }
 
-  int _selectedIndex = 1;
+  int _selectedIndex = 0;
 
-  final List _Pages = [
-    Video_Page(),
+  List _Pages = [
     Home_Page_Loader(),
-    Calendar_Page_Loader(),
+    Calendar_Page_Loader(name: ""),
   ];
 
   @override
@@ -113,10 +113,11 @@ class _BottomNavigationBarExampleAppState
         currentIndex: _selectedIndex,
         onTap: _navigateBottomBar,
         items: const <BottomNavigationBarItem>[
+          /*
           BottomNavigationBarItem(
             icon: Icon(Icons.video_call),
             label: 'Video',
-          ),
+          ),*/
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
             label: 'Home',

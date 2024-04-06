@@ -13,9 +13,11 @@ class FirestoreService {
 
   // Add data to the 'Events' collection
   static Future<void> addEventData(String eventName,
-      {required String userId, required Timestamp timestamp}) async {
+      {required String userId,
+      required Timestamp timestamp,
+      required String groupId}) async {
     CollectionReference collRef =
-        FirebaseFirestore.instance.collection('Events');
+        FirebaseFirestore.instance.collection('Groups/$groupId/Events');
     await collRef.add({'name': eventName, 'userId': userId, 'time': timestamp});
   }
 
