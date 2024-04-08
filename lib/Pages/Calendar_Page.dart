@@ -59,6 +59,10 @@ class _Calendar_PageState extends State<Calendar_Page> {
     }
   }
 
+  void _removeEvent(Event event) {}
+
+  void _editEvent(Event event) {}
+
   void initState() {
     super.initState();
     _selectedDay = _focusedDay;
@@ -73,7 +77,7 @@ class _Calendar_PageState extends State<Calendar_Page> {
   @override
   Widget build(BuildContext context) {
     //store the events created
-    print("(Line 64)Events in Calendar_Page: ${widget.events}");
+    print("(Line 80)Events in Calendar_Page: ${widget.events}");
     return Scaffold(
       body: content(widget.events),
       floatingActionButton: FloatingActionButton(
